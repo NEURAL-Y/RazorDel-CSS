@@ -1,0 +1,33 @@
+{
+  "name": "razordelcss",
+  "version": "1.0.0",
+  "description": "RazorDelCSS is a styling language that compiles to vanilla CSS with improved syntax and error detection.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+  "dev": "tsx src/index.ts",
+
+  "dev:analyzer": "tsx src/razordel/analyzer/razor.compile.ts",
+
+  "dev:compiler": "tsx src/razordel/compiler/logic.ts",
+  "dev:store": "tsx src/razordel/compiler/store.ts",
+
+  "dev:parser": "tsx src/razordel/parser/razor.parser.ts",
+
+  "dev:error": "tsx src/razordel/utils/error.ts",
+  "dev:helper": "tsx src/razordel/utils/helper.ts",
+
+  "build": "tsc",
+  "start": "node dist/index.js","test": "echo \"No tests configured\" && exit 0"
+},
+  "keywords": [
+    "css",
+    "styling",
+    "css-compiler",
+    "razordelcss"
+  ],
+  "devDependencies": {
+    "tsx": "^4.23.13"
+  }
+}

@@ -12,7 +12,7 @@
 [![TypeScript](https://img.shields.io/badge/built%20with-TypeScript-3178c6?logo=typescript&logoColor=white)](#)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#contributing)
 
-[Quick Start](#quick-start) • [Language Tour](#language-tour) • [Architecture](#architecture) • [Roadmap](#roadmap) • [Contributing](#contributing)
+[Quick Start](#quick-start) • [Language Tour](#language-tour) • [Architecture](#architecture) • [Roadmap](https://github.com/NEURAL-Y/RazorDel-CSS/blob/main/docs/development_charter.md) • [Contributing](#contributing)
 
 </div>
 

@@ -260,7 +260,6 @@ The principal areas of development shall include:
 * Execution observability;
 * Property-level validation;
 * Compilation status reporting;
-* Developer-defined aliases;
 * Advanced diagnostics; and
 * More capable execution mechanisms.
 

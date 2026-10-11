@@ -5,551 +5,310 @@
 **Project:** RazorDelCSS
 **Organization:** NEURAL-Y
 **Document Type:** Development Governance Charter
-**Effective Date:** 05 October 2026
-**Document Version:** 1.2
+**Document Version:** 1.3
+**Effective Date:** 11 October 2026
+**Supersedes:** Charter v1.2 (05 October 2026)
 **Status:** Public Declaration
 
 ---
 
 ## 1. PURPOSE
 
-This Development Governance Charter establishes the development principles, release objectives, adoption milestones, release windows, support lifecycles, technical priorities, and evolutionary policies governing RazorDelCSS.
+This Charter defines how RazorDelCSS is developed, released, supported, and governed.
 
-RazorDelCSS shall be developed as an evolving CSS compiler and developer-oriented styling system whose direction is informed by:
-
-* Technical requirements;
-* Modern CSS standards and platform evolution;
-* Compiler reliability;
-* Developer experience;
-* Community feedback;
-* Real-world usage;
-* Public adoption; and
-* Long-term maintainability.
-
-This Charter establishes the intended governance framework for the v1, v2, and v3 development generations.
+RazorDelCSS is a TypeScript-based styling language and compiler. It validates styling at compile time and emits standard CSS and SVG. This Charter exists so that contributors, users, and adopters can see what the project commits to, how progress is measured, and how decisions are made.
 
 ---
 
-# 2. DEVELOPMENT GENERATION AND LIFECYCLE
+## 2. CHANGES FROM CHARTER v1.2
 
-RazorDelCSS shall progress through distinct major development generations.
+| Area | v1.2 | v1.3 |
+| --- | --- | --- |
+| Release model | Three separate major generations (v1, v2, v3) with overlapping support | **One release line (1.x)** developed in three additive **stages** |
+| Dates | Hard deadline ("no later than") | **Target** dates; readiness decides (see §8) |
+| Adoption | GitHub star targets, partly tied to release readiness | **Adoption indicators**; stars are a public signal and never gate a release (see §9) |
+| Exit criteria | Not defined | **Acceptance checklist** per stage (§5–§7) |
+| Support | Overlapping lifecycles per generation | **Latest release line** supported (§10) |
+| Governance | Not defined | Decision-making, language-change process, security reporting (§12–§14) |
+| Scope | CSS compiler | Validation-first compiler with CSS and SVG output, aligned with the project README |
+| Developer-defined aliases | Listed in v3 scope | **Dropped** (§17) |
 
-Each generation shall have:
-
-1. A defined technical objective;
-2. A public-adoption target;
-3. A planned release window;
-4. A defined support lifecycle; and
-5. A documented transition to subsequent generations.
-
-### Development Lifecycle
-
-| Generation | Primary Focus                     | Adoption Target | Release Target                           | Support Until |
-| ---------- | --------------------------------- | --------------: | ---------------------------------------- | ------------- |
-| **v1**     | Foundation & Stability            |   **100 stars** | No later than **25 Dec 2026**            | **Feb 2027**  |
-| **v2**     | Compiler Advancement              |   **500 stars** | **25 Dec 2026 onward**, earlier if ready | **Sep 2027**  |
-| **v3**     | Advanced Compiler & Observability | **1,000 stars** | **1 Jan 2027 preferred; Jan–Feb 2027**   | **2028**      |
-
-The support lifecycle of a major version is independent of the release of a subsequent major version.
-
-Accordingly, multiple generations may temporarily coexist during their respective support periods.
+Stage 1, Stage 2, and Stage 3 correspond to v1, v2, and v3 in Charter v1.2.
 
 ---
 
-# 3. VERSION 1 — FOUNDATION AND STABILITY
+## 3. CORE PRINCIPLES
 
-## 3.1 Primary Objective
-
-The primary objective of v1 is to establish RazorDelCSS as a stable and maintainable CSS compiler foundation.
-
-v1 shall prioritize:
-
-1. Compiler stability;
-2. Correct CSS generation;
-3. Reliable property handling;
-4. Modern CSS compatibility;
-5. Predictable compiler behavior;
-6. Maintainable architecture;
-7. Error detection and reporting;
-8. Documentation;
-9. Developer usability; and
-10. Initial public adoption.
+1. **Validation first.** The compiler analyzes styling before generating output. Catching mistakes before the browser is the project's central promise.
+2. **Checks always run.** Configuration may change whether a problem stops the build or is reported while compilation continues. Checks themselves cannot be disabled.
+3. **Zero runtime.** Output is standard CSS and SVG. No RazorDelCSS code ships to the browser.
+4. **Always ejectable.** Because output is plain CSS and SVG, a team can stop using RazorDelCSS and keep working with the generated files.
+5. **Deterministic builds.** Functions executed at compile time must be pure (no file-system or network access), so the same input always produces the same output.
+6. **Readiness over calendar.** Dates are targets. A stage is not released in a knowingly unstable state to satisfy a date.
+7. **Honest metrics.** Adoption is measured by real use. Artificial manipulation of any metric does not count as achievement.
+8. **Clarity over cleverness.** Reduce unnecessary developer effort without reducing source-code clarity.
 
 ---
 
-# 4. VERSION 1 — FULL RELEASE DEADLINE
+## 4. RELEASE MODEL
 
-The complete v1 release shall be launched **no later than 25 December 2026**.
+### 4.1 One release line
 
-The release shall represent a complete public version rather than merely a version-number publication.
+RazorDelCSS develops on a single release line, **1.x**. Each stage adds capabilities to the line.
 
-The v1 release shall include the functionality, documentation, compiler behavior, and supporting infrastructure considered necessary for its declared release scope.
+### 4.2 Versioning
 
-### Official v1 Deadline
+The project follows Semantic Versioning once 1.0.0 is released:
 
-**25 December 2026**
+* **Patch (1.x.y):** bug fixes, no behavior change.
+* **Minor (1.x.0):** backward-compatible additions, including new stages and new CSS capabilities.
+* **Major (x.0.0):** reserved for breaking changes to syntax, compiler behavior, or output guarantees.
 
-This date represents the latest planned launch date for the full v1 generation.
+Before 1.0.0 the project is pre-release; syntax and APIs may change without notice, as stated in the README.
 
----
+### 4.3 Stages
 
-# 5. VERSION 1 — EARLY RELEASE PROVISION
+| Stage | Name | Target date | Primary outcome |
+| --- | --- | --- | --- |
+| **1** | Foundation | **25 Dec 2026** | A working vertical slice: parser → analyzer → CSS and SVG output, plus a standalone CSS validator |
+| **2** | Productivity | **31 Jul 2027** | Incremental adoption and editor tooling |
+| **3** | Observability | **31 Jan 2028** | Compiler state, observability, and data graphs |
 
-The project may release v1 before 25 December 2026 where:
-
-* The defined v1 technical objectives have been sufficiently completed;
-* The implementation is considered stable;
-* Required documentation is available;
-* Release infrastructure is ready; and
-* The project's defined adoption objective has been achieved or the project determines that release readiness has otherwise been satisfied.
-
-Therefore:
-
-> **25 December 2026 is the maximum planned release date, not a mandatory release date.**
+Stages are additive. Stage 2 includes Stage 1; Stage 3 includes Stages 1 and 2.
 
 ---
 
-# 6. VERSION 1 — SUPPORT LIFECYCLE
+## 5. STAGE 1 — FOUNDATION
 
-RazorDelCSS v1 shall remain officially supported until:
+**Objective:** prove the core claim that compile-time, context-aware validation catches real styling mistakes, and emit correct CSS and SVG.
 
-## **February 2027**
+**Scope**
 
-During this support period, v1 may receive:
+* Lexer, parser, and semantic analyzer.
+* `box` and `container` with `height`, `width`, `color`, and `pos_x`.
+* `canvas` with `color`, `shape_selector`, and `animation`, compiling to CSS and to SVG.
+* Diagnostics: error and warning messages with rule ID, file location, and expected values.
+* `rdc check` for plain `.css` files with context-aware rules.
+* Documentation and release infrastructure.
 
-* Bug fixes;
-* Critical corrections;
-* Compatibility fixes;
-* Security-related corrections where applicable;
-* Necessary maintenance; and
-* Important CSS compatibility updates.
+**Acceptance checklist**
 
-The introduction of v2 or v3 shall not immediately terminate v1 support.
-
-However, after the end of the February 2027 support period, v1 shall transition out of its declared official support lifecycle unless a subsequent governance declaration extends that period.
-
----
-
-# 7. VERSION 1 — ADOPTION TARGET
-
-The defined community-adoption target for v1 is:
-
-## **100 GITHUB STARS**
-
-The target applies to the v1 development generation and its associated v1.x releases.
-
-If the target is not achieved during the intended period, the project shall document the result and consider the remaining adoption objective during subsequent development planning.
-
-Failure to achieve the target shall not terminate technical support before the declared support end date.
+- [ ] Every documented syntax form has at least one passing snapshot test.
+- [ ] `box`, `container`, and `canvas` compile to correct, validated CSS.
+- [ ] `canvas` compiles to valid standalone SVG for every supported `shape_selector` value.
+- [ ] `rdc check <file.css>` ships with at least 10 documented context-aware rules.
+- [ ] Every diagnostic includes rule ID, `file:line:column`, and expected values.
+- [ ] The validator has been run on at least 20 public open-source CSS codebases, and the method and results are published.
+- [ ] A language reference covers every public API; the quick start is verified on Windows, macOS, and Linux.
+- [ ] Continuous integration passes on supported Node.js LTS versions.
+- [ ] No known P0 (data-corrupting or crash-on-valid-input) bugs.
+- [ ] At least one real project is built with RazorDelCSS in public.
+- [ ] `LICENSE`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, and `SECURITY.md` are present.
 
 ---
 
-# 8. VERSION 2 — COMPILER ADVANCEMENT
+## 6. STAGE 2 — PRODUCTIVITY
 
-## 8.1 Primary Objective
+**Objective:** make RazorDelCSS adoptable inside existing projects and comfortable to write.
 
-v2 shall advance RazorDelCSS from its foundational compiler implementation toward a more capable and expressive compiler system.
+**Scope**
 
-The principal focus shall include:
+* `Options` class: legacy CSS blocks, file-scoped variables and functions, and `on_error` modes (`continue` or `stop`). Checks always run.
+* Orientation-first responsive layout: `auto_fit` and `manually_fit`, with a documented, deterministic fitting algorithm.
+* `font.load` font loader with compile-time file and fallback checks and a preload manifest.
+* Composite properties that map one RazorDelCSS property to multiple CSS properties, documented and predictable.
+* Editor tooling: VS Code extension with inline diagnostics and hover documentation.
+* Web playground (no install).
+* Source maps from generated CSS and SVG back to source.
+* First framework integration (Vite plugin), then React and Angular workflows.
+* Published stability and deprecation policy (§11).
 
-* More comprehensive compilation;
-* Advanced compiler processing;
-* Improved failure handling;
-* Detailed diagnostics;
-* Compiler validation;
-* Reduced repetitive syntax;
-* Higher-level styling abstractions;
-* Framework-oriented workflows;
-* Improved maintainability; and
-* Continued modern CSS support.
+**Acceptance checklist**
 
----
-
-# 9. VERSION 2 — RELEASE WINDOW
-
-The formal v2 transition shall begin **from 25 December 2026 onward**.
-
-However, if v2 reaches its defined technical objectives and release-readiness requirements earlier, the project may introduce v2 during the **November–December 2026** period.
-
-Accordingly:
-
-> **v2 may be released before 25 December 2026 if it is technically ready.**
-
-The project shall not artificially delay a technically complete major generation solely because the original calendar milestone has not yet arrived.
-
-At the same time, schedule pressure shall not justify knowingly releasing an unstable major version.
+- [ ] Existing CSS compiles in `legacy` blocks and is still validated; output for unmodified rules is unchanged.
+- [ ] `auto_fit` behavior is specified in the documentation and covered by tests.
+- [ ] `font.load` reports missing files, missing fallbacks, and unused fonts at compile time.
+- [ ] Source maps resolve generated output to the correct source location in browser developer tools.
+- [ ] The VS Code extension is published and shows diagnostics inline.
+- [ ] The playground is publicly available.
+- [ ] The Vite plugin is published and documented.
+- [ ] Compile-time function purity is enforced and tested.
+- [ ] Zero known P0 bugs; documentation current for every public API.
 
 ---
 
-# 10. VERSION 2 — ADOPTION TARGET
+## 7. STAGE 3 — OBSERVABILITY
 
-The defined community-adoption target for v2 is:
+**Objective:** deepen the compiler's internal capabilities and make its behavior inspectable.
 
-## **500 GITHUB REPO STARS**
+**Scope**
 
-This represents the intended public-adoption milestone for the v2 generation.
+* Compiler state storage.
+* Container and class association.
+* Execution observability and compilation status reporting.
+* Property-level validation.
+* Advanced diagnostics.
+* `canvas.graph()` data charts, rendered as static SVG at compile time: `line`, `bar`, `area`, `scatter`, with point, line, axis, and color styling and accessibility checks. Further chart types follow after the first four are stable.
+* Language Server Protocol support with autocomplete.
 
-If the target is not achieved within the intended development period, the project shall document the result, evaluate community response, and carry relevant unfinished objectives into subsequent planning.
+**Acceptance checklist**
 
----
-
-# 11. VERSION 2 — SUPPORT LIFECYCLE
-
-RazorDelCSS v2 shall remain officially supported until:
-
-## **September 2027**
-
-Support may include:
-
-* Bug fixes;
-* Compatibility corrections;
-* Compiler maintenance;
-* Critical corrections;
-* Documentation corrections;
-* Important CSS compatibility updates; and
-* Security-related corrections where applicable.
-
-The release of v3 shall not automatically terminate v2 support.
-
-v2 shall remain within its declared support lifecycle until the September 2027 support endpoint unless formally extended or modified by a subsequent governance declaration.
+- [ ] Compilation status and per-property validation results are inspectable through documented output.
+- [ ] `canvas.graph()` validates data fields, axis scales, and color contrast at compile time, and emits valid SVG.
+- [ ] Graph output is generated at compile time with no browser runtime.
+- [ ] LSP provides autocomplete and diagnostics in at least one editor beyond VS Code, or a documented LSP client guide.
+- [ ] Zero known P0 bugs; documentation current for every public API.
 
 ---
 
-# 12. VERSION 2 — COMMAND REDUCTION AND DEVELOPER PRODUCTIVITY
+## 8. RELEASE READINESS
 
-v2 shall investigate mechanisms for reducing repetitive source commands while preserving readability and maintainability.
+A stage is released when its acceptance checklist is complete and the maintainers agree it is stable.
 
-The project may introduce scripts, abstractions, or compiler constructs intended to simplify development for modern web applications.
+* A stage may be released **earlier** than its target date if its checklist is complete.
+* A stage is **not** released in a knowingly unstable state to satisfy a date.
+* If a target date is missed, the delay is recorded under §16, not removed from history.
 
-Particular consideration shall be given to workflows involving:
-
-* React;
-* Angular; and
-* other component-oriented web frameworks.
-
-The governing principle shall be:
-
-> **Reduce unnecessary developer effort without reducing source-code clarity.**
+Target dates are planning commitments to users about intent, not guarantees.
 
 ---
 
-# 13. VERSION 2 — COMPOSITE PROPERTIES
+## 9. ADOPTION INDICATORS
 
-v2 may introduce higher-level properties capable of representing multiple underlying CSS properties.
+Adoption is measured by use, not by star count.
 
-Conceptually:
+| Indicator | Stage 1 | Stage 2 | Stage 3 |
+| --- | --- | --- | --- |
+| Public projects using RazorDelCSS | 1 | 10 | 25 |
+| External contributors with merged pull requests | 1 | 5 | 15 |
+| Maintainers with merge rights | 1 | 2 | 3 |
+| Issues filed by people other than maintainers | 5 | 25 | 100 |
+| Playground or `rdc check` sessions per month | — | 100 | 1,000 |
 
-**RazorDelCSS Property → Compiler Interpretation → Multiple CSS Properties**
+These are targets, not release gates.
 
-Such properties may provide different execution behavior from direct CSS mappings.
-
-Their implementation shall remain documented and predictable so that developers can understand how the abstraction translates into CSS.
-
----
-
-# 14. VERSION 3 — ADVANCED COMPILER AND OBSERVABILITY
-
-## 14.1 Primary Objective
-
-v3 shall represent a major advancement in the internal capabilities of the RazorDelCSS compiler.
-
-The principal areas of development shall include:
-
-* Compiler state storage;
-* Container and class association;
-* Execution observability;
-* Property-level validation;
-* Compilation status reporting;
-* Advanced diagnostics; and
-* More capable execution mechanisms.
+**GitHub stars** remain a public signal of interest. The project's aspirational milestones are **100** (Stage 1), **500** (Stage 2), and **1,000** (Stage 3). Stars never gate a release, never substitute for technical quality, and are not counted if artificially inflated.
 
 ---
 
-# 15. VERSION 3 — INTRODUCTION WINDOW
+## 10. SUPPORT POLICY
 
-v3 shall belong to the **2027 development generation**.
+* The **latest minor release** of the current major version receives bug fixes and compatibility updates.
+* When a new major version is released, the **previous major version** receives security and critical fixes for **12 months**.
+* Stages do not create separate support lifecycles, because they are minor releases on the same line.
 
-The preferred introduction date is:
-
-## **1 January 2027**
-
-If v3 cannot satisfy its release-readiness requirements by 1 January 2027, the planned introduction window shall extend through:
-
-## **January–February 2027**
-
-Where v3 reaches sufficient technical maturity before the beginning of 2027, the project may prepare the release in advance, while the formal v3 generation shall be associated with the 2027 release cycle.
+Support periods may be extended by a later governance declaration.
 
 ---
 
-# 16. VERSION 3 — ADOPTION TARGET
+## 11. COMPATIBILITY, DEPRECATION, AND BREAKING CHANGES
 
-The defined community-adoption target for v3 is:
-
-## **1,000 GITHUB STARS**
-
-The 1,000-star milestone shall represent the declared adoption objective of the v3 generation.
-
-The milestone shall be interpreted as the project's defined adoption target and shall not be treated as a substitute for technical quality, reliability, or developer value.
+* Within a major version, existing valid source continues to compile to equivalent output.
+* A feature is **deprecated** for at least one minor release and at least **90 days** before removal, with a compile-time warning and a documented migration path. Where practical, an automated codemod is provided.
+* Breaking changes ship only in a major version.
+* Output changes that alter rendered results are treated as breaking, except to fix a bug.
 
 ---
 
-# 17. VERSION 3 — SUPPORT LIFECYCLE
+## 12. DECISION-MAKING AND ROLES
 
-RazorDelCSS v3 shall remain officially supported through:
-
-## **2028**
-
-The exact end-of-support date within 2028 may subsequently be established through a future governance update.
-
-During its support lifecycle, v3 may receive:
-
-* Bug fixes;
-* Compiler maintenance;
-* Compatibility updates;
-* Critical corrections;
-* Security-related corrections where applicable;
-* Modern CSS compatibility improvements; and
-* Documentation maintenance.
+* **Founding maintainer (NEURAL-Y)** holds final decision authority while the project has one maintainer.
+* Once there are **two or more maintainers**, decisions are made by consensus; if consensus is not reached, by majority of maintainers.
+* **Maintainers** may merge pull requests and triage issues. Contributors who sustain high-quality contributions may be invited as maintainers.
+* Decisions affecting the language, compiler behavior, or output follow the language-change process in §13.
 
 ---
 
-# 18. CONTINUOUS CSS EVOLUTION POLICY
+## 13. LANGUAGE CHANGE PROCESS
 
-RazorDelCSS shall continuously evaluate changes to the CSS platform.
+Changes to syntax, semantics, or output follow a lightweight RFC process:
 
-New CSS properties, selectors, functions, APIs, and related capabilities shall be evaluated regardless of the current major version.
+1. Open an issue labeled `rfc` describing the problem, proposed design, alternatives, and compatibility impact.
+2. Allow at least **14 days** for public comment.
+3. A maintainer records the decision and its rationale in the issue.
+4. Accepted changes are added to the roadmap, tests, and documentation before release.
 
-Where technically appropriate, new CSS functionality may be introduced through:
-
-* Patch releases;
-* Minor releases; or
-* Major releases.
-
-A major-version boundary shall therefore not prevent RazorDelCSS from supporting relevant new CSS capabilities.
-
-The project's version roadmap describes architectural progression, not a restriction on the evolution of CSS support.
+Small bug fixes and documentation changes do not require an RFC.
 
 ---
 
-# 19. COMMUNITY-INFORMED DEVELOPMENT
+## 14. SECURITY
 
-Development priorities shall be influenced by:
-
-* GitHub issues;
-* Feature requests;
-* Bug reports;
-* Pull requests;
-* Developer feedback;
-* Framework requirements;
-* Real-world usage;
-* Community discussions; and
-* Public adoption.
-
-Community popularity shall be treated as a development signal rather than an absolute technical authority.
-
-A highly requested feature shall still be evaluated for:
-
-* Technical feasibility;
-* Compatibility;
-* Maintainability;
-* Performance;
-* Reliability; and
-* Long-term architectural impact.
+* Vulnerabilities are reported through GitHub's private vulnerability reporting, as described in `SECURITY.md`.
+* Reports receive an acknowledgment, and fixes ship through the support policy in §10.
+* Compile-time function execution is restricted to pure functions without file-system or network access (§3.5). Any weakening of that restriction requires an RFC.
 
 ---
 
-# 20. ADOPTION TARGETS
+## 15. COMMUNITY-INFORMED DEVELOPMENT AND CSS EVOLUTION
 
-The declared adoption targets are:
+Priorities are informed by issues, feature requests, bug reports, pull requests, framework requirements, real-world usage, and community discussion. Popularity is a signal, not authority. Every request is evaluated for feasibility, compatibility, maintainability, performance, reliability, and architectural impact.
 
-| Major Generation |                 Target |
-| ---------------- | ---------------------: |
-| **v1**           |   **100 GitHub stars** |
-| **v2**           |   **500 GitHub stars** |
-| **v3**           | **1,000 GitHub stars** |
-
-These targets shall represent genuine community-adoption objectives.
-
-Artificial manipulation of GitHub metrics shall not constitute achievement of the intended objective.
+RazorDelCSS continuously evaluates changes to the CSS platform. New CSS properties, selectors, functions, and APIs may be added in a patch or minor release where technically appropriate. Stage boundaries do not restrict CSS support.
 
 ---
 
-# 21. MISSED TARGET AND SCHEDULE CARRY-FORWARD
+## 16. MISSED OBJECTIVES AND CARRY-FORWARD
 
-If an adoption, technical, or development objective is not achieved within its planned period, the objective shall remain documented.
+If a technical, schedule, or adoption objective is not achieved, the project shall:
 
-The project shall:
+1. Record the unmet objective.
+2. Evaluate the cause.
+3. Review relevant community feedback.
+4. Reassess priorities.
+5. Carry appropriate objectives into later planning and revise dates where justified.
 
-1. Record the unmet objective;
-2. Evaluate the cause;
-3. Review relevant community feedback;
-4. Reassess technical priorities;
-5. Carry appropriate objectives into subsequent planning; and
-6. Modify the schedule where justified.
-
-Any resulting delay shall form part of the project's documented development history rather than being silently removed.
+Delays remain part of the documented development history.
 
 ---
 
-# 22. RELEASE READINESS PRINCIPLE
+## 17. DROPPED AND DEFERRED
 
-Calendar dates establish planned release windows.
-
-They do not override technical readiness.
-
-Accordingly:
-
-> **A release may occur earlier when its requirements are satisfied, but a major release shall not be knowingly published in an unstable state merely to satisfy a calendar date.**
-
-This principle applies to v1, v2, v3, and subsequent major generations.
+| Item | Status | Reason |
+| --- | --- | --- |
+| Developer-defined aliases | Dropped | Fragments the language, adds tooling cost, duplicates TypeScript functions |
+| Browser-runtime charting libraries | Not supported | Conflicts with the zero-runtime principle |
+| Node-edge `network` graphs | Deferred (post Stage 3) | Requires a separate layout engine |
+| Cross-file sharing of `Options` members | Deferred | Same-file scope first |
+| Remote font loading (for example, Google Fonts) | Deferred | Privacy and third-party request concerns; self-hosted fonts first |
 
 ---
 
-# 23. SUPPORT OVERLAP POLICY
+## 18. FORMAL DECLARATION
 
-RazorDelCSS shall permit overlapping support lifecycles.
-
-The intended lifecycle is therefore:
-
-**v1 Support**
-→ until **February 2027**
-
-**v2 Support**
-→ until **September 2027**
-
-**v3 Support**
-→ through **2028**
-
-This overlap is intentional.
-
-It provides developers with a reasonable transition period between major generations and prevents the release of a new major version from immediately invalidating the previous supported generation.
-
----
-
-# 24. DEVELOPMENT PROGRESSION
-
-The intended progression is:
-
-### v1
-
-**Foundation & Stability**
-
-**100 stars**
-**Release by 25 Dec 2026**
-**Support until Feb 2027**
-
-↓
-
-### v2
-
-**Compiler Advancement & Developer Productivity**
-
-**500 stars**
-**Release from 25 Dec 2026 onward**
-**Earlier release permitted in Nov–Dec 2026**
-**Support until Sep 2027**
-
-↓
-
-### v3
-
-**Advanced Compiler, State & Observability**
-
-**1,000 stars**
-**Preferred release: 1 Jan 2027**
-**Fallback window: Jan–Feb 2027**
-**Support through 2028**
-
----
-
-# 25. LONG-TERM DEVELOPMENT PRINCIPLE
-
-RazorDelCSS shall evolve from a stable CSS compilation foundation toward an increasingly capable compiler and developer-oriented styling infrastructure.
-
-The intended progression is:
-
-**v1 — Stable Foundation**
-
-↓
-
-**v2 — Advanced Compiler**
-
-↓
-
-**v3 — Observable & Extensible Compiler**
-
-↓
-
-**Future Generations — Advanced Styling Development Infrastructure**
-
-Each major version shall represent a meaningful technical progression rather than merely a numerical increment.
-
----
-
-# 26. FORMAL DECLARATION
-
-Effective **05 October 2026**, NEURAL-Y hereby establishes this Development Governance Charter as the declared development framework for RazorDelCSS.
+Effective **11 October 2026**, NEURAL-Y establishes this Charter as the declared governance framework for RazorDelCSS and supersedes Charter v1.2.
 
 The project commits to:
 
-* Completing and releasing the full v1 generation no later than **25 December 2026**;
-* Supporting v1 through **February 2027**;
-* Progressing toward v2 from **25 December 2026 onward**, with an earlier November–December 2026 release permitted where readiness is achieved;
-* Targeting **500 GitHub stars** for v2;
-* Supporting v2 through **September 2027**;
-* Introducing v3 on **1 January 2027** where release readiness permits, otherwise within the January–February 2027 window;
-* Targeting **1,000 GitHub stars** for v3;
-* Supporting v3 through **2028**;
-* Continuing to evaluate and incorporate relevant new CSS capabilities throughout all development generations; and
-* Using genuine community feedback and adoption as important signals for future development.
+* Developing on a single 1.x release line in three additive stages;
+* Targeting Stage 1 by **25 December 2026**, Stage 2 by **31 July 2027**, and Stage 3 by **31 January 2028**, subject to §8;
+* Releasing each stage only when its acceptance checklist is complete;
+* Measuring adoption by the indicators in §9;
+* Keeping validation checks always on and output free of runtime dependencies;
+* Following the compatibility, deprecation, and security policies above; and
+* Documenting missed objectives rather than removing them.
 
-This Charter shall remain effective until formally superseded or amended by a subsequent Development Governance Charter.
+This Charter remains in effect until superseded by a later Development Governance Charter.
 
 ---
 
-# DIGITAL DECLARATION RECORD
+## DECLARATION RECORD
 
 **Project:** RazorDelCSS
 **Organization:** NEURAL-Y
 **Document:** Development Governance Charter
-**Charter Version:** 1.2
-**Effective Date:** 05 October 2026
+**Charter Version:** 1.3
+**Effective Date:** 11 October 2026
+**Declaration Identifier:** `NEURAL-Y/RZCSS/GOV/2026/10/11`
 **Status:** PUBLIC
-
-**Declaration Reference:**
-`RZCSS-DGC-20261005-8A4F71C2`
-
-**Digital Declaration Identifier:**
-`NEURAL-Y/RZCSS/GOV/2026/10/05`
-
-**Declared By:**
-**NEURAL-Y — RazorDelCSS Development**
-
-**Declaration Date:**
-**05 October 2026**
-
----
-
-## DIGITAL SIGNATURE RECORD
-
-**Signature Reference:**
-`RZCSS-SIG-05OCT2026-8A4F71C2`
-
-**Signing Entity:**
-**NEURAL-Y / RazorDelCSS Development**
-
-**Document Status:**
-**DECLARED**
-
-**Effective:**
-**05 October 2026**
+**Verification:** Published as a signed Git tag (`charter-v1.3`); the tag signature is the authoritative record of this declaration.
 
 ---
 
 ## FINAL GOVERNANCE STATEMENT
 
-> **RazorDelCSS shall evolve continuously, release responsibly, remain aligned with the advancing CSS platform, respond to its developer community, and treat every major generation as a measurable technical and developmental progression.**
+> **RazorDelCSS shall validate before it emits, release when ready, measure adoption by real use, and treat every stage as a measurable technical progression.**
 
 **NEURAL-Y**
 **RazorDelCSS Development**
-**05 October 2026**
+**11 October 2026**

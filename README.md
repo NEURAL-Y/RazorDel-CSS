@@ -20,7 +20,7 @@ A TypeScript-based styling language and compiler that checks your styles, then e
 </div>
 
 ---
-
+<img src="https://github.com/NEURAL-Y/RazorDel-CSS/blob/main/public/countdown.svg" width=100% />
 > [!WARNING]
 > **RazorDelCSS is in early development.** Syntax and APIs will change, and breaking changes are expected. This README describes the project's **design direction**. A feature counts as available only when it is implemented and tested (see the [roadmap](#-roadmap)).
 
